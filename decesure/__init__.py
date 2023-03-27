@@ -17,7 +17,7 @@ class Cesure:
     def unhyphen(self, word1: str, word2: str) -> str:
         word1 = word1.rstrip("-")
         unic = word1 + word2
-        multic = "-".join(word1, word2)
+        multic = "-".join((word1, word2))
         if unic.lower() in self._data:
             return unic
         if multic.lower() in self._data:
