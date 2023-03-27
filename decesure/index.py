@@ -29,7 +29,7 @@ class AbstractWikiHandler(ContentHandler):
             if name == "title":
                 value = value[11:]
             self.counter.update(
-                w for w in value.lower().strip("|()[]").split() if (len(w) > 2)
+                w.strip('"|()[],. <>?!') for w in value.lower().split() if (len(w) > 2)
             )
 
     def dump(self, file):
