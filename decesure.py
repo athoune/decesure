@@ -28,7 +28,9 @@ class AbstractWikiHandler(ContentHandler):
             value = self.buffer.getvalue()
             if name == "title":
                 value = value[11:]
-            self.counter.update(w for w in value.lower().split() if len(w) > 1)
+            self.counter.update(
+                w for w in value.lower().strip("|()[]").split() if (len(w) > 2)
+            )
 
     def dump(self, f):
         "dump counter to pickle format"
