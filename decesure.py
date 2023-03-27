@@ -32,9 +32,9 @@ class AbstractWikiHandler(ContentHandler):
                 w for w in value.lower().strip("|()[]").split() if (len(w) > 2)
             )
 
-    def dump(self, f):
+    def dump(self, file):
         "dump counter to pickle format"
-        pickle.dump(dict(self.counter), f)
+        pickle.dump(dict(self.counter), file)
 
 
 if __name__ == "__main__":
@@ -46,4 +46,4 @@ if __name__ == "__main__":
         sax.parse(f, h)
     print(h.counter.most_common(128))
     print(h.counter.total())
-    h.dump(open('en.pickle', 'wb'))
+    h.dump(open("en.pickle", "wb"))
