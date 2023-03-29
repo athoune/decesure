@@ -46,9 +46,16 @@ if __name__ == "__main__":
     import gzip
 
     h = AbstractWikiHandler()
-    with gzip.open(sys.argv[1], "r") as f:
-        sax.parse(f, h)
+    if len(sys.argv) == 1:
+        print("Wikipedia abstract dump is needed\n", sys.argv[0], "enwiki-20230320-abstract.xml.gz")
+    if sys.argv[1].endswith(".gz"):
+        f = gzip.open(sys.argv[1], "r")
+    else:
+        f = open(sys.argv[1], encoding="utf-8")
+    sax.parse(f, h)
+    f.close()
     print(h.counter.most_common(128))
     print(h.counter.total())
-    with open("en.txt", "w", encoding="utf8") as f:
+    lang = sys.argv[1].split("/")[-1][:2]
+    with open(f"{lang}.txt", "w", encoding="utf8") as f:
         h.dump(f)
